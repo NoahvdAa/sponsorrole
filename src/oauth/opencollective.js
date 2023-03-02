@@ -48,7 +48,7 @@ export async function handleOpenCollectiveCallback(request, env, ctx, url) {
         return Response.redirect(`${env.BASE_URL}/error`, 302);
     }
 
-    let sponsoring = await getSponsoring(accessToken);
+    let sponsoring = await getSponsoring(accessToken, env.OPENCOLLECTIVE_INCLUDE_ORGANIZATION_SPONSORS === 'true');
 
     if (sponsoring.includes(env.OPENCOLLECTIVE_COLLECTIVE_SLUG)) {
         let success = await setSponsorStatus(payload.accessToken, env.DISCORD_CLIENT_ID, false, true);
